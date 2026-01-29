@@ -1,404 +1,627 @@
-
+<!DOCTYPE html>
 <html lang="km">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile | Hour Zy - Neon Glass</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Battambang:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
+    <title>HOUR ZY - Glass Design</title>
     <style>
-        /* 1. Global & Variables & Performance Hints */
-        :root {
-            --color-primary: #00e5ff; /* Neon Cyan */
-            --color-secondary: #0072ff; /* Deep Blue */
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.15);
-            --text-light: #f0f0f0;
-        }
-        
-        /* GPU Acceleration Hint (Smoothness) */
-        .glass-card, h1, .role, p, .social-btn, .main-btn, .call-btn, .floating-particles li {
-            will-change: transform, opacity, box-shadow, filter;
+        @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&family=Battambang:wght@400;700&family=Bayon&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* 2. Body & Background Animation */
         body {
-            margin: 0; padding: 0; height: 100vh; font-family: 'Poppins', 'Battambang', sans-serif;
-            background: linear-gradient(135deg, #00003b, #03004d, #004e92); background-size: 400% 400%;
-            animation: gradientBG 20s ease infinite; display: flex; justify-content: center; align-items: center;
-            overflow: hidden; perspective: 1000px;
-        }
-        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        @keyframes float { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-5px) scale(1.01); } }
-        @keyframes fadeIn { from { opacity: 0; filter: blur(10px); } to { opacity: 1; filter: blur(0); } }
-        
-        @keyframes pulseGlow {
-            0% { opacity: 1; text-shadow: 0 0 7px var(--color-primary); }
-            100% { opacity: 0.9; text-shadow: 0 0 15px var(--color-primary), 0 0 30px rgba(0, 229, 255, 0.5); }
-        }
-        
-        @keyframes cardPulse {
-            0% { box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 40px rgba(0, 229, 255, 0.1); }
-            50% { box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 50px rgba(0, 229, 255, 0.2); }
-            100% { box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 40px rgba(0, 229, 255, 0.1); }
-        }
-        
-        @keyframes pulseNumber {
-            0% { box-shadow: 0 0 15px #ff9900, 0 8px 25px rgba(255, 100, 0, 0.7); }
-            100% { box-shadow: 0 0 5px #ff9900, 0 5px 15px rgba(255, 100, 0, 0.4); }
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Battambang', 'Segoe UI', 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #0f2947 0%, #1a4d6d 25%, #3d7fa3 50%, #4a9db5 75%, #0f2947 100%);
+            background-size: 400% 400%;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        /* 3. Glass Card Styling (បន្ថែម Card Pulse) */
-        .glass-card {
-            background: var(--glass-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border); border-radius: 20px; padding: 35px; text-align: center;
-            width: 90%; max-width: 380px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 40px rgba(0, 229, 255, 0.1);
-            animation: fadeIn 1.5s ease-out, cardPulse 5s infinite ease-in-out; 
-            transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-            transform-style: preserve-3d;
-            z-index: 10; 
-        }
-        .glass-card:hover { 
-            transform: rotateY(1.5deg) rotateX(0.5deg) scale(1.02); 
-            box-shadow: 0 25px 45px rgba(0,0,0,0.7), 0 0 60px rgba(0, 229, 255, 0.3);
-        }
-
-        /* 4. Profile Image & 5. Typography (បន្ថែម Hover Animations) */
-        .profile-figure { margin: 0; padding: 0; }
-        .profile-img { width: 140px; height: 140px; border-radius: 50%; border: 3px solid var(--color-primary); outline: 4px solid rgba(255, 255, 255, 0.15); object-fit: cover; box-shadow: 0 0 20px rgba(0, 229, 255, 0.5); animation: float 4s ease-in-out infinite; }
-        
-        h1 { 
-            color: var(--text-light); font-size: 38px; font-weight: 700; margin-bottom: 0px;
-            text-shadow: 0 0 7px rgba(0, 229, 255, 0.6), 0 0 15px rgba(0, 229, 255, 0.4), 0 0 25px rgba(0, 229, 255, 0.2); 
-            animation: pulseGlow 3s infinite alternate;
-            transition: transform 0.3s ease-out; 
-        }
-        h1:hover { transform: translateY(-2px) scale(1.005); } 
-        
-        .role { 
-            color: var(--color-primary); margin-top: 5px; font-size: 16px; font-weight: 600;
-            text-shadow: 0 0 5px rgba(0, 229, 255, 0.8);
-            transition: transform 0.3s ease-out; 
-        }
-        .role:hover { transform: translateX(5px); } 
-
-        p { 
-            color: #ccc; font-size: 15.5px; 
-            transition: transform 0.3s ease-out; 
-        }
-        p:hover { transform: translateY(-1px); } 
-
-
-        /* 6. Social Icons */
-        .social-icons {
-            display: flex; justify-content: center; gap: 0; margin-bottom: 25px; padding-top: 10px; 
-            position: relative; height: 48px; 
-        }
-        .social-btn {
-            width: 48px; height: 48px; border-radius: 50%; background: var(--glass-bg);
-            display: flex; justify-content: center; align-items: center; color: var(--text-light);
-            text-decoration: none; transition: all 0s; border: 1px solid var(--glass-border); 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3); font-size: 20px; position: absolute; cursor: pointer;
-        }
-        .social-btn:hover {
-            background: var(--color-primary); color: #000; 
-            transform: translate3d(0, -8px, 0) scale(1.1) !important;
-            box-shadow: 0 0 30px var(--color-primary), 0 10px 20px rgba(0,0,0,0.5); 
-        }
-        .social-btn:active {
-            transform: translate3d(0, -2px, 0) scale(0.95) !important;
-            box-shadow: 0 2px 5px rgba(0, 229, 255, 0.6); transition: all 0.05s ease-out;
-        }
-        .main-icon { opacity: 0; pointer-events: none; z-index: 5; transform: translate3d(0, 15px, 0) scale(0.8); }
-
-        /* 7. Main Buttons Container & Styles */
-        .main-buttons-container {
-            display: flex; gap: 12px; justify-content: center; margin-top: 20px;
-        }
-        .main-btn {
-            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
-            color: white; text-decoration: none; padding: 13px 20px; border-radius: 30px;
-            font-weight: 700; text-shadow: 0 0 5px rgba(255, 255, 255, 0.6); 
-            transition: all 0.3s ease; display: inline-block; cursor: pointer; text-align: center;
-            box-shadow: 0 0 10px rgba(0, 229, 255, 0.5), 0 8px 25px rgba(0, 114, 255, 0.5);
-            flex-grow: 2; max-width: 250px;
-        }
-        .call-btn {
-            background: linear-gradient(90deg, #ff9900, #ff5500);
-            flex-grow: 1; max-width: 120px; padding: 13px 15px; font-size: 15px;
-            box-shadow: 0 0 10px rgba(255, 153, 0, 0.6), 0 8px 25px rgba(255, 100, 0, 0.5);
-            position: relative; 
-            overflow: hidden; 
-        }
-        .main-btn:hover { 
-            transform: scale(1.03); box-shadow: 0 0 20px var(--color-primary), 0 10px 30px rgba(0, 114, 255, 0.7); 
-        }
-        .call-btn:hover:not(.counting) { 
-            transform: scale(1.03); box-shadow: 0 0 20px #ff9900, 0 10px 30px rgba(255, 100, 0, 0.7);
-        }
-        .main-btn:active, .call-btn:active { transform: scale(0.98); }
-
-        /* 8. Countdown Styles */
-        .call-btn::after {
-            content: attr(data-countdown); 
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0); 
-            display: flex; justify-content: center; align-items: center;
-            font-size: 28px; font-weight: 700; color: var(--color-primary);
-            opacity: 0; visibility: hidden; transition: opacity 0.3s ease, transform 0.3s ease;
-            transform: scale(0.8); pointer-events: none;
-            text-shadow: none; 
-            font-family: 'Poppins', sans-serif;
-            letter-spacing: 2px;
-        }
-        
-        .call-btn.counting::after {
-            opacity: 1; visibility: visible; transform: scale(1);
-        }
-        .call-btn.counting { animation: none; }
-
-        /* 9. Floating Background Particles */
-        .floating-particles {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            overflow: hidden; margin: 0; padding: 0; list-style: none;
-            z-index: 1; 
-        }
-        .floating-particles li {
-            position: absolute; display: block; list-style: none; width: 20px; height: 20px;
-            background: rgba(0, 229, 255, 0.15);
-            animation: animateParticles 25s linear infinite;
-            bottom: -150px; border-radius: 50%;
-            box-shadow: 0 0 10px rgba(0, 229, 255, 0.8);
-        }
-        .floating-particles li:nth-child(1) { left: 25%; width: 80px; height: 80px; animation-delay: 0s; }
-        .floating-particles li:nth-child(2) { left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; }
-        .floating-particles li:nth-child(3) { left: 70%; width: 20px; height: 20px; animation-delay: 4s; }
-        .floating-particles li:nth-child(4) { left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; }
-        .floating-particles li:nth-child(5) { left: 65%; width: 20px; height: 20px; animation-delay: 0s; }
-        .floating-particles li:nth-child(6) { left: 75%; width: 110px; height: 110px; animation-delay: 3s; }
-        .floating-particles li:nth-child(7) { left: 35%; width: 150px; height: 150px; animation-delay: 7s; }
-        .floating-particles li:nth-child(8) { left: 50%; width: 25px; height: 25px; animation-delay: 15s; animation-duration: 45s; }
-        .floating-particles li:nth-child(9) { left: 20%; width: 15px; height: 15px; animation-delay: 2s; animation-duration: 35s; }
-        .floating-particles li:nth-child(10) { left: 85%; width: 150px; height: 150px; animation-delay: 11s; animation-duration: 11s; }
-
-        @keyframes animateParticles {
-            /* ⭐️ ប្រើ translate3d សម្រាប់ Performance */
-            0% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); opacity: 0; }
-            50% { opacity: 1; }
-            100% { transform: translate3d(0, -1000px, 0) rotate(720deg) scale(0.5); opacity: 0; }
+        /* Animated background elements */
+        body::before {
+            content: '';
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(100, 200, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -200px;
+            right: -200px;
+            filter: blur(50px);
+            animation: float 12s ease-in-out infinite;
+            z-index: 0;
         }
 
-        /* 11. Card Footer Style */
-        .card-footer {
-            color: var(--color-primary); /* ពណ៌ Neon Cyan */
-            font-size: 13px;
+        body::after {
+            content: '';
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(150, 100, 200, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            bottom: -150px;
+            left: -150px;
+            filter: blur(50px);
+            animation: float 15s ease-in-out infinite reverse;
+            z-index: 0;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) translateX(0px); }
+            50% { transform: translateY(40px) translateX(30px); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            max-width: 700px;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+        }
+
+        .page {
+            display: none;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* PAGE 1 STYLES */
+        .header {
+            text-align: center;
+            margin-bottom: 80px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .welcome {
+            font-size: 17px;
+            color: rgba(255, 255, 255, 0.8);
+            letter-spacing: 1.2px;
+            margin-bottom: 15px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .title {
+            font-size: 64px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -2px;
+            text-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            margin-bottom: 10px;
+            line-height: 1.2;
+            font-family: 'Bayon', 'Battambang', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.85);
             font-weight: 400;
-            margin-top: 25px;
-            padding-top: 10px;
-            border-top: 1px solid var(--glass-border); /* បន្ទាត់ចែក */
-            /* Neon Light Glow */
-            text-shadow: 0 0 5px rgba(0, 229, 255, 0.5); 
-            transition: all 0.3s ease;
-        }
-        .card-footer:hover {
-            transform: scale(1.05);
-            filter: brightness(1.2);
+            letter-spacing: 0.5px;
+            line-height: 1.8;
+            font-family: 'Battambang', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
-        /* 12. Media Query សម្រាប់ PC/Web (Responsive Design) */
-        @media (min-width: 768px) {
+        .cards-container {
+            display: grid;
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border-radius: 28px;
+            padding: 40px 35px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.1) 0%,
+                transparent 60%
+            );
+            animation: shimmer 3s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(20px, 20px) rotate(5deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+
+        .glass-card > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            display: inline-block;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .card-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+            line-height: 1.5;
+            font-family: 'Battambang', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .card-description {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.9;
+            margin-bottom: 20px;
+            font-weight: 400;
+            letter-spacing: 0.2px;
+            font-family: 'Battambang', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .card-quote {
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.8;
+            font-family: 'Battambang', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 15px;
+            margin: 15px 0 0 0;
+            padding-left: 15px;
+            border-left: 3px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .card-link {
+            display: inline-block;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 16px;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            letter-spacing: 0.2px;
+            margin-top: 15px;
+            border: none;
+        }
+
+        .card-link:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-link:active {
+            transform: translateY(-1px);
+        }
+
+        /* PAGE 2 STYLES */
+        .header-page2 {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 16px;
+            color: #ffffff;
+            font-size: 18px;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            text-decoration: none;
+            border: none;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transform: translateX(-5px);
+        }
+
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.8px;
+            line-height: 1.4;
+            font-family: 'Bayon', 'Battambang', -apple-system, BlinkMacSystemFont, sans-serif;
+            flex: 1;
+            text-align: center;
+        }
+
+        .note-input {
+            width: 100%;
+            min-height: 200px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 16px;
+            color: #ffffff;
+            font-family: 'Battambang', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 16px;
+            line-height: 1.8;
+            resize: vertical;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .note-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .note-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .button-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .action-btn {
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-family: 'Battambang', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .action-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .action-btn:active {
+            transform: translateY(0);
+        }
+
+        .save-btn:hover {
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
+        }
+
+        .clear-btn:hover {
+            box-shadow: 0 8px 20px rgba(255, 165, 0, 0.3);
+        }
+
+        .delete-btn:hover {
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.3);
+        }
+
+        .saved-notes {
+            margin-top: 30px;
+        }
+
+        .note-item {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 12px;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.8;
+            font-family: 'Battambang', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 15px;
+            animation: fadeInUp 0.4s ease-out;
+        }
+
+        .note-time {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 8px;
+            font-weight: 400;
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            margin: 30px 0;
+        }
+
+        .contact-section {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border-radius: 28px;
+            padding: 50px 40px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out 0.8s both;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 30px;
+            text-align: center;
+            letter-spacing: -0.8px;
+            line-height: 1.4;
+            font-family: 'Bayon', 'Battambang', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .button-group {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .contact-btn {
+            padding: 18px 30px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 18px;
+            color: #ffffff;
+            font-size: 17px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 
+                0 4px 15px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.3px;
+        }
+
+        .contact-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 
+                0 12px 35px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .contact-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-icon {
+            font-size: 20px;
+        }
+
+        .footer-text {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 14px;
+            letter-spacing: 0.3px;
+            font-weight: 400;
+            font-family: 'Battambang', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 42px;
+            }
+
             .glass-card {
-                max-width: 550px; 
-                padding: 50px; 
+                padding: 30px 25px;
             }
 
-            .profile-img {
-                width: 160px; 
-                height: 160px;
-                border: 4px solid var(--color-primary); 
+            .button-container {
+                grid-template-columns: 1fr;
             }
 
-            h1 {
-                font-size: 48px; 
+            .contact-btn {
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .title {
+                font-size: 36px;
             }
 
-            .role {
-                font-size: 18px;
+            .glass-card {
+                padding: 25px 20px;
+                border-radius: 20px;
             }
 
-            p {
-                font-size: 17px; 
+            .note-input {
+                min-height: 150px;
+                font-size: 15px;
             }
 
-            .main-buttons-container {
-                margin-top: 30px; 
+            .action-btn {
+                font-size: 13px;
             }
-            
-            .social-btn:hover {
-                 /* ⭐️ ប្រើ translate3d សម្រាប់ Performance */
-                 transform: translate3d(0, -10px, 0) scale(1.1) !important;
+
+            .contact-btn {
+                font-size: 14px;
+                padding: 14px 20px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
             }
         }
     </style>
 </head>
 <body>
+    <!-- PAGE 1: HOME PAGE -->
+    <div id="page1" class="page active">
+        <div class="container">
+            <div class="header">
+                <div class="welcome">Welcome!</div>
+                <h1 class="title">HOUR ZY!</h1>
+                <p class="subtitle">ពិសេសអ្វីដែលយើងផ្តល់ជូនអ្នក</p>
+            </div>
 
-    <div class="glass-card">
-        <figure class="profile-figure">
-            <img src="me.png" alt="Hour Zy Profile Picture" class="profile-img">
-        </figure>
-        
-        <h1>Hour Zy!</h1>
-        <div class="role"> Website in Beta ✨</div>
-        
-        <p>សួស្ដី! Hello I'm Hour this new website កំពុងដំណើរការការក្នុងការសាកល្បង!</p>
+            <div class="cards-container">
+                <div class="glass-card">
+                    <div class="card-icon">📚</div>
+                    <h2 class="card-title">Content Creation</h2>
+                    <p class="card-description">តែងសេចក្ដី</p>
+                    <p class="card-quote">ប្រធាន «សេរីភាព គឺជាបំណងប្រាថ្នារបស់មនុស្ស»</p>
+                    <button class="card-link" onclick="goToPage2()">អាន</button>
+                </div>
+            </div>
 
-        <div class="social-icons" id="socialIconsContainer">
-            <a href="https://www.facebook.com/share/17mZX1vPr6/" class="social-btn main-icon" id="fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a class="social-btn main-icon" id="tele" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
-            <a class="social-btn main-icon" id="tiktok" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-            <a class="social-btn main-icon" id="yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <div class="contact-section">
+                <h2 class="section-title">ទំនាក់ទំនងយើងខ្ញុំ</h2>
+                
+                <div class="button-group">
+                    <a href="https://t.me/Hour_zoa" target="_blank" class="contact-btn">
+                        <span>Telegram</span>
+                    </a>
+                    <a href="https://youtube.com/@hour_zy" target="_blank" class="contact-btn">
+                        <span>YouTube</span>
+                    </a>
+                    <a href="tel:+855972471969" class="contact-btn">
+                        <span>Call</span>
+                    </a>
+                </div>
+
+                <div class="divider"></div>
+
+                <p class="footer-text">
+                    ការឆ្លើយតប ២៤ម៉ោង អគុណសម្រាប់ការគាំទ្រ 🙏
+                </p>
+            </div>
         </div>
-
-        <div class="main-buttons-container">
-            <a href="#" class="main-btn" id="mainToggleBtn">ទំនាក់ទំនង់</a>
-            <a href="tel:060967188" class="main-btn call-btn" id="callNowBtn" data-countdown="">Call Now</a> 
-        </div>
-        
-        <footer class="card-footer">
-            Owner by: Hour 01.12.25
-        </footer>
     </div>
-    
-    <ul class="floating-particles">
-        <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
-    </ul>
+
+    <!-- PAGE 2: NOTES PAGE -->
+    <div id="page2" class="page">
+        <div class="container">
+            <div class="header-page2">
+                <button class="back-btn" onclick="goToPage1()">←</button>
+                <h1 class="page-title">Content Creation</h1>
+                <div style="width: 45px;"></div>
+            </div>
+
+            <div class="glass-card">
+                <div class="card-icon">📝</div>
+                
+                <h2 class="card-title">តែងសេចក្ដី</h2>
+                
+                <p class="card-quote" style="margin-top: 15px; margin-bottom: 30px;">
+                    ប្រធាន «សេរីភាព គឺជាបំណងប្រាថ្នារបស់មនុស្ស»
+                </p>
+
+                <p class="card-description" style="margin-top: 20px;">
+                    សូមស្វាគមន៍មក HOUR ZY ដែលជាកន្លែងដែលយើងបង្កើតលក្ខណៈ original content ដែលពិតប្រាកដ ប្រកបដោយការច្នៃប្រឌិត និងគុណភាពខ្ពស់។ យើងចូលចិត្តក្នុងការផ្ដល់ជូនលោកអ្នកនូវលក្ខណៈដែលមានន័យ និងចម្រើន។
+                </p>
+
+                <p class="card-description">
+                    ខ្ញុំសូមបង្កើតលក្ខណៈទាក់ទងដូចឧទាហរណ៍មួយ ដែលក្នុងលោកខ្ញុំវា គឺបង្កើតលក្ខណៈដែលពិតប្រាកដ ប្រកបដោយការច្នៃប្រឌិត និងគុណភាព។ យើងគឺជាក្រុមដែលម្នាក់ក្នុងមួយក្នុងការបង្កើតលក្ខណៈដែលមានលក្ខណៈពិសេស និងសម្បូរក្នុង។
+                </p>
+
+                <div class="divider"></div>
+
+                <p class="card-description">
+                    យើងច្រើនលើក បាននិយាយថា សេរីភាព គឺជាចំណុចសំខាន់បំផុត។ ដូច្នេះ យើងនឹងតែងតែផ្តល់ឱ្យលោកអ្នកនូវលក្ខណៈដែលមានលក្ខណៈសម្បូរក្នុង ហើយឱ្យលោកអ្នកមានសេរីភាពក្នុងការកំណត់មតិលើលក្ខណៈរបស់យើង។
+                </p>
+            </div>
+        </div>
+    </div>
 
     <script>
-        const mainToggleBtn = document.getElementById('mainToggleBtn');
-        const socialContainer = document.getElementById('socialIconsContainer');
-        const mainIcons = document.querySelectorAll('.main-icon');
-        const callBtn = document.getElementById('callNowBtn');
-        const callTarget = callBtn.getAttribute('href'); 
-
-        const updateMessage = "🚧 សូមព្យាយាមម្តងទៀតនៅពេលក្រោយ។ ពួកយើងកំពុង Update Website!";
-        
-        const alertIcons = document.querySelectorAll('.main-icon:not(#fb)');
-
-        // Function សម្រាប់បើក (Expand)
-        function expandIcons() {
-            socialContainer.classList.add('expanded');
-            mainToggleBtn.textContent = '❌ បិទ (Close)';
-            
-            mainIcons.forEach((icon, index) => {
-                setTimeout(() => {
-                    icon.style.transition = 'all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
-                    icon.style.opacity = 1;
-                    icon.style.pointerEvents = 'auto';
-                    
-                    // ⭐️ ប្រើ translate3d
-                    if (icon.id === 'fb') icon.style.transform = 'translate3d(-110px, 0, 0)';
-                    else if (icon.id === 'tele') icon.style.transform = 'translate3d(-35px, 0, 0)';
-                    else if (icon.id === 'tiktok') icon.style.transform = 'translate3d(35px, 0, 0)';
-                    else if (icon.id === 'yt') icon.style.transform = 'translate3d(110px, 0, 0)';
-
-                }, index * 120); 
-            });
+        // Page Navigation
+        function goToPage1() {
+            document.getElementById('page1').classList.add('active');
+            document.getElementById('page2').classList.remove('active');
         }
 
-        // Function សម្រាប់បិទ (Collapse)
-        function collapseIcons() {
-            socialContainer.classList.remove('expanded');
-            mainToggleBtn.textContent = 'ទំនាក់ទំនង់';
-
-            mainIcons.forEach((icon, index) => {
-                setTimeout(() => {
-                    icon.style.transition = 'all 0.2s ease-out';
-                    icon.style.opacity = 0;
-                    // ⭐️ ប្រើ translate3d
-                    icon.style.transform = 'translate3d(0, 15px, 0) scale(0.8)';
-                }, index * 50); 
-            });
+        function goToPage2() {
+            document.getElementById('page1').classList.remove('active');
+            document.getElementById('page2').classList.add('active');
         }
-
-        // Function ថ្មី៖ ចាប់ផ្តើមការរាប់ថយក្រោយនៅលើប៊ូតុង
-        function startCountdown() {
-            let count = 3;
-            
-            callBtn.classList.add('counting'); 
-            callBtn.setAttribute('data-countdown', count);
-            
-            const timer = setInterval(() => {
-                count--;
-                if (count >= 0) {
-                    callBtn.setAttribute('data-countdown', count); 
-                } else {
-                    clearInterval(timer);
-                    setTimeout(() => {
-                        callBtn.classList.remove('counting'); 
-                        callBtn.setAttribute('data-countdown', ''); 
-                        window.location.href = callTarget; 
-                    }, 1000); 
-                }
-            }, 1000); 
-        }
-
-
-        // Event Listener សម្រាប់ Toggle Button (ទំនាក់ទំនង់)
-        mainToggleBtn.addEventListener('click', function(e) {
-            e.preventDefault(); 
-            
-            if (!socialContainer.classList.contains('expanded')) {
-                expandIcons();
-            } else {
-                collapseIcons();
-            }
-        });
-
-        // Event Listener សម្រាប់ Social Icons (Tele, TikTok, YT)
-        alertIcons.forEach(icon => {
-            icon.addEventListener('click', function(e) {
-                e.preventDefault(); 
-                
-                alert(updateMessage);
-                
-                if (socialContainer.classList.contains('expanded')) {
-                    setTimeout(() => {
-                        collapseIcons();
-                    }, 10); 
-                }
-            });
-        });
-        
-        // Event Listener សម្រាប់ FB Icon (ប្រើ Link ផ្ទាល់)
-        document.getElementById('fb').addEventListener('click', function(e) {
-             if (socialContainer.classList.contains('expanded')) {
-                 setTimeout(() => {
-                    collapseIcons();
-                 }, 500); 
-             }
-             // កូដនឹងបន្តរត់ទៅកាន់ Link Facebook
-        });
-
-        // Event Listener សម្រាប់ប៊ូតុង Call (Call Now)
-        callBtn.addEventListener('click', function(e) {
-            e.preventDefault(); 
-            
-            if (callBtn.classList.contains('counting')) return; 
-
-            if (socialContainer.classList.contains('expanded')) {
-                collapseIcons();
-                setTimeout(startCountdown, 500); 
-            } else {
-                startCountdown();
-            }
-        });
-
     </script>
-
 </body>
 </html>
-
